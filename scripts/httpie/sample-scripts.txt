@@ -1,0 +1,4 @@
+http post localhost:8080/auth/login < login.json
+
+
+docker run -e BLOGAP_DB_HOST=blogappdb --network docker_blogappnetwork blogapp-be

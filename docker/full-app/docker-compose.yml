@@ -1,0 +1,35 @@
+services:
+  blogappdb:
+    #    image: mariadb:10.2
+    container_name: blogappdb
+    image: mariadb
+    environment:
+      TZ: 'Asia/Singapore'
+      MYSQL_ROOT_PASSWORD: kakokaba
+    ports:
+      - 3391:3306
+    volumes:
+      - '../mariadb/init:/docker-entrypoint-initdb.d'
+    networks:
+      - blogappnetwork
+  blogapp-be:
+    image: blogapp-be
+    restart: always
+    container_name: blogapp-be
+    environment:
+      BLOGAPP_DB_HOST: blogappdb
+      BLOGAPP_DB_PORT: 3306
+    ports:
+      - 8080:8080
+    networks:
+      - blogappnetwork
+  blogapp-fe:
+    container_name: blogapp-fe
+    image: blogapp-fe
+    ports:
+      - 9000:8000
+    networks:
+      - blogappnetwork
+
+networks:
+  blogappnetwork:

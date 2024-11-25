@@ -1,0 +1,16 @@
+services:
+  blogappdb:
+    #    image: mariadb:10.2
+    container_name: blogappdb
+    image: mariadb
+    environment:
+      TZ: 'Asia/Singapore'
+      MYSQL_ROOT_PASSWORD: kakokaba
+    ports:
+      - 3391:3306
+    volumes:
+      - './init:/docker-entrypoint-initdb.d'
+    networks:
+      - blogappnetwork
+networks:
+  blogappnetwork:
